@@ -24,7 +24,7 @@
                             </p>
                         </td>
                         <td class="text-center">
-                            <a class="btn btn-outline-primary" href="#">
+                            <a class="btn btn-outline-primary" href="{% url 'messenger:mailing_list' %}">
                                 {{ mailing_count }}
                             </a>
                         </td>
@@ -36,7 +36,7 @@
                             </p>
                         </td>
                         <td class="text-center">
-                            <a class="btn btn-outline-primary" href="#">
+                            <a class="btn btn-outline-primary" href="{% url 'messenger:mailing_list_active' %}">
                                 {{ active_mailing_count }}
                             </a>
                         </td>
@@ -48,7 +48,7 @@
                             </p>
                         </td>
                         <td class="text-center">
-                            <a class="btn btn-outline-primary" href="#">
+                            <a class="btn btn-outline-primary" href="{% url 'messenger:client_list' %}">
                                 {{ unique_clients_count }}
                             </a>
                         </td>

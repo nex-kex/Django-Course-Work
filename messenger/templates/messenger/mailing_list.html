@@ -24,8 +24,8 @@
         {% for mailing in object_list %}
         <tr>
             <th scope="row">{{ mailing.pk }}</th>
-            <td>{{ mailing.sending_start | date:"G:i:s d.m.Y" }}</td>
-            <td>{{ mailing.sending_end | date:"G:i:s d.m.Y" }}</td>
+            <td>{{ mailing.sending_start | date:"H:i:s d.m.Y" }}</td>
+            <td>{{ mailing.sending_end | date:"H:i:s d.m.Y" }}</td>
             <td>{{ mailing.status }}</td>
             <td>{{ mailing.message.topic }}</td>
         </tr>

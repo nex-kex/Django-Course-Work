@@ -16,4 +16,5 @@ urlpatterns = [
     path("client/list/", views.ClientListView.as_view(), name="client_list"),
     path("message/list/", views.MessageListView.as_view(), name="message_list"),
     path("mailing/list/", views.MailingListView.as_view(), name="mailing_list"),
+    path("mailing/list/active/", views.ActiveMailingListView.as_view(), name="mailing_list_active"),
 ]

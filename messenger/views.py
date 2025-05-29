@@ -86,6 +86,14 @@ class MailingListView(ListView):
     model = Mailing
 
 
+class ActiveMailingListView(ListView):
+    model = Mailing
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(status="Запущена")
+
+
 class MailingDeleteView(DeleteView):
     model = Mailing
     success_url = reverse_lazy('messenger:mailings_list')
