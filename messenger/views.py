@@ -26,13 +26,13 @@ class ClientListView(ListView):
 
 class ClientDeleteView(DeleteView):
     model = Client
-    success_url = reverse_lazy('messenger:clients_list')
+    success_url = reverse_lazy('messenger:client_list')
 
 
 class ClientCreateView(CreateView):
     model = Client
     fields = ['email', 'name', 'comment']
-    success_url = reverse_lazy('messenger:clients_list')
+    success_url = reverse_lazy('messenger:client_list')
 
     def get_success_url(self):
         return reverse_lazy("messenger:client_detail", args=[self.object.pk])
@@ -41,7 +41,7 @@ class ClientCreateView(CreateView):
 class ClientUpdateView(UpdateView):
     model = Client
     fields = ['email', 'name', 'comment']
-    success_url = reverse_lazy('messenger:clients_list')
+    success_url = reverse_lazy('messenger:client_list')
 
     def get_success_url(self):
         return reverse_lazy("messenger:client_detail", args=[self.kwargs.get("pk")])
@@ -63,7 +63,7 @@ class MessageDeleteView(DeleteView):
 class MessageCreateView(CreateView):
     model = Message
     fields = ['topic', 'content']
-    success_url = reverse_lazy('messenger:messages_list')
+    success_url = reverse_lazy('messenger:message_list')
 
     def get_success_url(self):
         return reverse_lazy("messenger:message_detail", args=[self.object.pk])
@@ -72,7 +72,7 @@ class MessageCreateView(CreateView):
 class MessageUpdateView(UpdateView):
     model = Message
     fields = ['topic', 'content']
-    success_url = reverse_lazy('messenger:messages_list')
+    success_url = reverse_lazy('messenger:message_list')
 
     def get_success_url(self):
         return reverse_lazy("messenger:message_detail", args=[self.kwargs.get("pk")])
@@ -96,13 +96,13 @@ class ActiveMailingListView(ListView):
 
 class MailingDeleteView(DeleteView):
     model = Mailing
-    success_url = reverse_lazy('messenger:mailings_list')
+    success_url = reverse_lazy('messenger:mailing_list')
 
 
 class MailingCreateView(CreateView):
     model = Mailing
     fields = ['sending_start', 'sending_end', 'status', 'message', 'clients']
-    success_url = reverse_lazy('messenger:mailings_list')
+    success_url = reverse_lazy('messenger:mailing_list')
 
     def get_success_url(self):
         return reverse_lazy("messenger:mailing_detail", args=[self.object.pk])
@@ -111,7 +111,7 @@ class MailingCreateView(CreateView):
 class MailingUpdateView(UpdateView):
     model = Mailing
     fields = ['sending_start', 'sending_end', 'status', 'message', 'clients']
-    success_url = reverse_lazy('messenger:mailings_list')
+    success_url = reverse_lazy('messenger:mailing_list')
 
     def get_success_url(self):
         return reverse_lazy("messenger:mailing_detail", args=[self.kwargs.get("pk")])
