@@ -1,0 +1,36 @@
+{% extends 'messenger/base.html' %}
+
+{% block title %}Список рассылок{% endblock %}
+
+{% block content %}
+
+<h1 class="text-center m-3">
+    Список рассылок
+    <hr class="border border-primary border-1 opacity-75">
+</h1>
+
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">ID рассылки</th>
+            <th scope="col">Дата начала</th>
+            <th scope="col">Дата окончания</th>
+            <th scope="col">Статус рассылки</th>
+            <th scope="col">Тема cообщения</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for mailing in object_list %}
+        <tr>
+            <th scope="row">{{ mailing.pk }}</th>
+            <td>{{ mailing.sending_start | date:"G:i:s d.m.Y" }}</td>
+            <td>{{ mailing.sending_end | date:"G:i:s d.m.Y" }}</td>
+            <td>{{ mailing.status }}</td>
+            <td>{{ mailing.message.topic }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

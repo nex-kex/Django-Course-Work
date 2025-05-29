@@ -64,7 +64,7 @@
             <div class="card border-primary mb-3 p-3 text-center">
                 <h3>Клиенты</h3>
                 <div class="card-body text-primary">
-                    <a class="btn btn-outline-primary" href="#">
+                    <a class="btn btn-outline-primary" href="{% url 'messenger:client_list' %}">
                         Все клиенты
                     </a>
                     <a class="btn btn-outline-primary" href="{% url 'messenger:client_create' %}">
@@ -77,7 +77,7 @@
             <div class="card border-primary mb-3 p-3 text-center">
                 <h3>Сообщения</h3>
                 <div class="card-body text-primary">
-                    <a class="btn btn-outline-primary" href="#">
+                    <a class="btn btn-outline-primary" href="{% url 'messenger:message_list' %}">
                         Все сообщения
                     </a>
                     <a class="btn btn-outline-primary" href="{% url 'messenger:message_create' %}">
@@ -90,7 +90,7 @@
             <div class="card border-primary mb-3 p-3 text-center">
                 <h3>Рассылки</h3>
                 <div class="card-body text-primary">
-                    <a class="btn btn-outline-primary" href="#">
+                    <a class="btn btn-outline-primary" href="{% url 'messenger:mailing_list' %}">
                         Все рассылки
                     </a>
                     <a class="btn btn-outline-primary" href="{% url 'messenger:mailing_create' %}">

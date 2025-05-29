@@ -1,0 +1,32 @@
+{% extends 'messenger/base.html' %}
+
+{% block title %}Список клиентов{% endblock %}
+
+{% block content %}
+
+<h1 class="text-center m-3">
+    Список клиентов
+    <hr class="border border-primary border-1 opacity-75">
+</h1>
+
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">ID клиента</th>
+            <th scope="col">ФИО клиента</th>
+            <th scope="col">Email клиента</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for client in object_list %}
+        <tr>
+            <th scope="row">{{ client.pk }}</th>
+            <td>{{ client.name }}</td>
+            <td>{{ client.email }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
