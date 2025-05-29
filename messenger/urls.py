@@ -6,4 +6,6 @@ from . import views
 
 app_name = MessengerConfig.name
 
-urlpatterns = []
+urlpatterns = [
+
+]
