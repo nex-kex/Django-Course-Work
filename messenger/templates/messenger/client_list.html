@@ -4,12 +4,23 @@
 
 {% block content %}
 
+{% include 'messenger/navbar.html' %}
+
 <h1 class="text-center m-3">
     Список клиентов
     <hr class="border border-primary border-1 opacity-75">
 </h1>
 
 <div class="container">
+    <div class="row mb-2">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <a class="btn btn-primary w-100" href="{% url 'messenger:client_create' %}">
+                Создать нового клиента
+            </a>
+        </div>
+        <div class="col-3"></div>
+    </div>
     <table class="table table-striped">
         <thead>
         <tr>
