@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Главная страница</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="text-center m-3">
+        Вы находитесь на главной странице сервиса
+        <hr class="border border-primary border-1 opacity-75">
+    </h1>
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <div class="card border-primary m-4 p-3">
+                <h3 class="text-center">
+                    Информация о сервисе на текущий момент:
+                </h3>
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <p class="mt-2">
+                                Количество всех рассылок:
+                            </p>
+                        </td>
+                        <td class="text-center">
+                            <a class="btn btn-outline-primary" href="#">
+                                {{ mailing_count }}
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="mt-2">
+                                Количество активных рассылок:
+                            </p>
+                        </td>
+                        <td class="text-center">
+                            <a class="btn btn-outline-primary" href="#">
+                                {{ active_mailing_count }}
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="mt-2">
+                                Количество уникальных получателей:
+                            </p>
+                        </td>
+                        <td class="text-center">
+                            <a class="btn btn-outline-primary" href="#">
+                                {{ unique_clients_count }}
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <div class="card border-primary mb-3 p-3 text-center">
+                <h3>Клиенты</h3>
+                <div class="card-body text-primary">
+                    <a class="btn btn-outline-primary" href="#">
+                        Все клиенты
+                    </a>
+                    <a class="btn btn-outline-primary" href="#">
+                        Создать нового
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card border-primary mb-3 p-3 text-center">
+                <h3>Сообщения</h3>
+                <div class="card-body text-primary">
+                    <a class="btn btn-outline-primary" href="#">
+                        Все сообщения
+                    </a>
+                    <a class="btn btn-outline-primary" href="#">
+                        Создать новое
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card border-primary mb-3 p-3 text-center">
+                <h3>Рассылки</h3>
+                <div class="card-body text-primary">
+                    <a class="btn btn-outline-primary" href="#">
+                        Все рассылки
+                    </a>
+                    <a class="btn btn-outline-primary" href="#">
+                        Создать новую
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/static/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

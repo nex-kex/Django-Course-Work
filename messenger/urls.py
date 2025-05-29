@@ -7,5 +7,5 @@ from . import views
 app_name = MessengerConfig.name
 
 urlpatterns = [
-
+    path("", views.MainTemplateView.as_view(), name="main"),
 ]
