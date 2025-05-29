@@ -5,8 +5,8 @@ class Client(models.Model):
 
     email = models.CharField(max_length=150, unique=True, verbose_name="Email")
     name = models.CharField(max_length=150, verbose_name="ФИО")
-    comment = models.CharField(
-        max_length=150, null=True, blank=True, verbose_name="Комментарий"
+    comment = models.TextField(
+        null=True, blank=True, verbose_name="Комментарий"
     )
 
     def __str__(self):

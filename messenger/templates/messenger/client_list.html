@@ -21,7 +21,11 @@
         <tbody>
         {% for client in object_list %}
         <tr>
-            <th scope="row">{{ client.pk }}</th>
+            <th scope="row">
+                <a class="btn btn-outline-secondary" href="{% url 'messenger:client_detail' client.pk %}">
+                    {{ client.pk }}
+                </a>
+            </th>
             <td>{{ client.name }}</td>
             <td>{{ client.email }}</td>
         </tr>

@@ -20,7 +20,11 @@
         <tbody>
         {% for message in object_list %}
         <tr>
-            <th scope="row">{{ message.pk }}</th>
+            <th scope="row">
+                <a class="btn btn-outline-secondary" href="{% url 'messenger:message_detail' message.pk %}">
+                    {{ message.pk }}
+                </a>
+            </th>
             <td>{{ message.topic }}</td>
         </tr>
         {% endfor %}

@@ -23,7 +23,11 @@
         <tbody>
         {% for mailing in object_list %}
         <tr>
-            <th scope="row">{{ mailing.pk }}</th>
+            <th scope="row">
+                <a class="btn btn-outline-secondary" href="{% url 'messenger:mailing_detail' mailing.pk %}">
+                    {{ mailing.pk }}
+                </a>
+            </th>
             <td>{{ mailing.sending_start | date:"H:i:s d.m.Y" }}</td>
             <td>{{ mailing.sending_end | date:"H:i:s d.m.Y" }}</td>
             <td>{{ mailing.status }}</td>
