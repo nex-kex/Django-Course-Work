@@ -28,6 +28,7 @@
             <th scope="col">Дата начала</th>
             <th scope="col">Дата окончания</th>
             <th scope="col">Статус рассылки</th>
+            <th scope="col"></th>
             <th scope="col">Тема cообщения</th>
         </tr>
         </thead>
@@ -42,6 +43,16 @@
             <td>{{ mailing.sending_start | date:"H:i:s d.m.Y" }}</td>
             <td>{{ mailing.sending_end | date:"H:i:s d.m.Y" }}</td>
             <td>{{ mailing.status }}</td>
+            <td>
+                {% if mailing.status == "Создана" %}
+                <form method="post" action="{% url 'messenger:mailing_start' mailing.pk %}">
+                    {% csrf_token %}
+                    <button class="btn btn-outline-primary" type="submit">
+                        Запуск
+                    </button>
+                </form>
+                {% endif %}
+            </td>
             <td>{{ mailing.message.topic }}</td>
         </tr>
         {% endfor %}

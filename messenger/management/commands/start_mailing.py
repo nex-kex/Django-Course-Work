@@ -1,8 +1,10 @@
-from django.core.management.base import BaseCommand
-from django.core.mail import send_mail
-from django.utils import timezone
-from messenger.models import Mailing
 import os
+
+from django.core.mail import send_mail
+from django.core.management.base import BaseCommand
+from django.utils import timezone
+
+from messenger.models import Mailing
 
 
 class Command(BaseCommand):
@@ -10,7 +12,6 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument("mailing_id", type=int, help="ID рассылки")
-
 
     def handle(self, *args, **options):
 
@@ -26,9 +27,9 @@ class Command(BaseCommand):
             mailing.save()
 
             send_mail(
-                mailing.message.topic,
-                mailing.message.content,
-                os.getenv("EMAIL_HOST_USER"),
-                [client.email for client in mailing.clients.all()],
+                subject=mailing.message.topic,
+                message=mailing.message.content,
+                from_email=os.getenv("EMAIL_HOST_USER"),
+                recipient_list=[client.email for client in mailing.clients.all()],
                 fail_silently=False,
             )
