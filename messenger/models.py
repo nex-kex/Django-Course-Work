@@ -53,7 +53,7 @@ class Mailing(models.Model):
     class Meta:
         verbose_name = "Рассылка"
         verbose_name_plural = "Рассылки"
-        ordering = ["status", "sending_start"]
+        ordering = ["-status", "sending_start"]
 
 
 class Attempt(models.Model):

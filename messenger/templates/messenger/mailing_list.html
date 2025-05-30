@@ -45,12 +45,13 @@
             <td>{{ mailing.status }}</td>
             <td>
                 {% if mailing.status == "Создана" %}
-                <form method="post" action="{% url 'messenger:mailing_start' mailing.pk %}">
-                    {% csrf_token %}
-                    <button class="btn btn-outline-primary" type="submit">
-                        Запуск
-                    </button>
-                </form>
+                <a class="btn btn-outline-primary" href="{% url 'messenger:mailing_start_confirm' mailing.pk %}">
+                    Запуск
+                </a>
+                {% elif mailing.status == "Запущена" %}
+                <a class="btn btn-outline-danger" href="{% url 'messenger:mailing_end_confirm' mailing.pk %}">
+                    Завершить
+                </a>
                 {% endif %}
             </td>
             <td>{{ mailing.message.topic }}</td>

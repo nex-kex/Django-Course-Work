@@ -1,0 +1,37 @@
+{% extends 'messenger/base.html' %}
+
+{% block title %}Завершение рассылки{% endblock %}
+
+{% block content %}
+
+{% include 'messenger/navbar.html' %}
+
+<h1 class="text-center m-3">
+    Завершение рассылки №{{ object.pk }}
+    <hr class="border border-primary border-1 opacity-75">
+</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <div class="card border-primary m-4 p-3 ">
+                <h3 class="card-header">
+                    Рассылка на тему "{{ object.message.topic }}"
+                </h3>
+                <div class="card-body">
+                    <h5 class="card-title">{{ object.status }}</h5>
+                    <p class="card-text">Период действия: {{ object.sending_start | date:"H:i:s d.m.Y" }} - {{ object.sending_end | date:"H:i:s d.m.Y" }}</p>
+                    <form method="post" action="{% url 'messenger:mailing_end' mailing.pk %}">
+                            {% csrf_token %}
+                            <button class="btn btn-outline-danger" type="submit">Завершить</button>
+                        <a href="{% url 'messenger:mailing_list' %}" class="btn btn-secondary">Отмена</a>
+                        </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+</div>
+
+{% endblock %}

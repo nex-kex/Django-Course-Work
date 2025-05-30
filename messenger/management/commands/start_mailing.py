@@ -18,7 +18,7 @@ class Command(BaseCommand):
         mailing_id = options["mailing_id"]
         mailing = Mailing.objects.get(pk=mailing_id)
 
-        if timezone.now() > mailing.sending_end:
+        if timezone.now() > mailing.sending_end or mailing.status == "Завершена":
             mailing.status = "Завершена"
             mailing.save()
 

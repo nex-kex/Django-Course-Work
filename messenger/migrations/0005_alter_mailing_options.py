@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
         migrations.AlterModelOptions(
             name="mailing",
             options={
-                "ordering": ["status", "sending_start"],
+                "ordering": ["-status", "sending_start"],
                 "verbose_name": "Рассылка",
                 "verbose_name_plural": "Рассылки",
             },
