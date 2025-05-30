@@ -57,7 +57,7 @@ class Mailing(models.Model):
 
 
 class Attempt(models.Model):
-    attempt_time = models.DateTimeField(verbose_name="Дата и время попытки")
+    attempt_time = models.DateTimeField(auto_now_add=True, verbose_name="Дата и время попытки")
     status = models.CharField(
         max_length=10,
         choices=[("Успешно", "Успешно"), ("Не успешно", "Не успешно")],
@@ -66,13 +66,12 @@ class Attempt(models.Model):
     response = models.TextField(verbose_name="Ответ почтового сервера")
     mailing = models.ForeignKey(
         Mailing,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         verbose_name="Сообщение",
-        null=True,
         related_name="attempt",
     )
 
     class Meta:
         verbose_name = "Попытка рассылки"
         verbose_name_plural = "Попытки рассылок"
-        ordering = ["attempt_time"]
+        ordering = ["-attempt_time"]
