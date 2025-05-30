@@ -93,7 +93,7 @@ class MessageListView(ListView):
 
 class MessageDeleteView(DeleteView):
     model = Message
-    success_url = reverse_lazy("messenger:messages_list")
+    success_url = reverse_lazy("messenger:message_list")
 
 
 class MessageCreateView(CreateView):
