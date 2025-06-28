@@ -3,6 +3,7 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   TemplateView, UpdateView, View)
+
 from .models import Client, Mailing, Message
 
 
@@ -22,7 +23,7 @@ class MainTemplateView(TemplateView):
 class StartMailingView(View):
 
     def post(self, *args, **kwargs):
-        pk = kwargs.get('pk')
+        pk = kwargs.get("pk")
         call_command("start_mailing", str(pk))
         return redirect("messenger:mailing_list")
 
@@ -30,7 +31,7 @@ class StartMailingView(View):
 class EndMailingView(UpdateView):
     model = Mailing
     fields = []
-    success_url = reverse_lazy('messenger:mailing_list')
+    success_url = reverse_lazy("messenger:mailing_list")
 
     def form_valid(self, form):
         self.object.status = "Завершена"
@@ -42,14 +43,14 @@ class MailingStartTemplateView(UpdateView):
     model = Mailing
     fields = []
     success_url = reverse_lazy("messenger:mailing_list")
-    template_name = 'messenger/mailing_confirm_start.html'
+    template_name = "messenger/mailing_confirm_start.html"
 
 
 class MailingEndTemplateView(UpdateView):
     model = Mailing
     fields = []
     success_url = reverse_lazy("messenger:mailing_list")
-    template_name = 'messenger/mailing_confirm_end.html'
+    template_name = "messenger/mailing_confirm_end.html"
 
 
 class ClientDetailView(DetailView):

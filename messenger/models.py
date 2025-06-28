@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Client(models.Model):
-    email = models.CharField(max_length=150, unique=True, verbose_name="Email")
+    email = models.EmailField(unique=True, verbose_name="Email")
     name = models.CharField(max_length=150, verbose_name="ФИО")
     comment = models.TextField(null=True, blank=True, verbose_name="Комментарий")
 
@@ -57,7 +57,9 @@ class Mailing(models.Model):
 
 
 class Attempt(models.Model):
-    attempt_time = models.DateTimeField(auto_now_add=True, verbose_name="Дата и время попытки")
+    attempt_time = models.DateTimeField(
+        auto_now_add=True, verbose_name="Дата и время попытки"
+    )
     status = models.CharField(
         max_length=10,
         choices=[("Успешно", "Успешно"), ("Не успешно", "Не успешно")],

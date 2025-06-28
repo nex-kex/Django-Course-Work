@@ -4,7 +4,7 @@ from django.core.mail import send_mail
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 
-from messenger.models import Mailing, Attempt
+from messenger.models import Attempt, Mailing
 
 
 class Command(BaseCommand):
@@ -12,7 +12,6 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument("mailing_id", type=int, help="ID рассылки")
-
 
     def handle(self, *args, **kwargs):
 
@@ -35,12 +34,10 @@ class Command(BaseCommand):
         else:
             self._send_emails(mailing, attempt)
 
-
     def _mailing_ended(self, mailing):
         """Проверка на случай, если рассылка завершилась"""
 
         return mailing.sending_end < timezone.now() or mailing.status == "Завершена"
-
 
     def _send_emails(self, mailing, attempt):
         """Отправка писем с обработкой SMTP ответа"""
