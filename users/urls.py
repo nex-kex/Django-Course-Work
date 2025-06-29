@@ -1,0 +1,17 @@
+from django.contrib.auth.views import LoginView, LogoutView
+from django.urls import path
+
+from users.apps import UsersConfig
+
+from . import views
+
+app_name = UsersConfig.name
+
+urlpatterns = [
+    path("login/", LoginView.as_view(template_name="users/login.html"), name="login"),
+    path("logout/", LogoutView.as_view(next_page="messenger:main"), name="logout"),
+    path("register/", views.RegisterView.as_view(), name="register"),
+    path("<int:pk>/", views.UserDetailView.as_view(), name="user_detail"),
+    path("<int:pk>/update/", views.UserUpdateView.as_view(), name="user_update"),
+    path("<int:pk>/update_password/", views.UserUpdatePasswordView.as_view(), name="user_update_password"),
+]

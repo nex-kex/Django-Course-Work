@@ -1,0 +1,35 @@
+{% extends 'messenger/base.html' %}
+
+{% block title %}Страница пользователя{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+        <div class="card border-primary m-4 p-3">
+            <div class="card-body">
+                <h1 class="fw-bold mb-3">
+                    {{ object.first_name }} {{ object.last_name }}
+                </h1>
+                <p class="card-text">
+                    Email: {{ object.email }}
+                </p>
+                <p class="card-text">
+                    Телефон: {{ object.phone_number }}
+                </p>
+                <div>
+                    <form method="post">
+                        <a href="{% url 'users:user_update' object.pk %}"
+                           class="btn btn-outline-primary">Редактировать профиль</a>
+                        <a href="{% url 'users:user_update' object.pk %}"
+                           class="btn btn-outline-primary">Изменить пароль</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-3"></div>
+</div>
+
+{% endblock %}
