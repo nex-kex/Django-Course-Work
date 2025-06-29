@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   TemplateView, UpdateView, View)
 
+from . import forms
 from .models import Client, Mailing, Message
 
 
@@ -68,7 +69,7 @@ class ClientDeleteView(DeleteView):
 
 class ClientCreateView(CreateView):
     model = Client
-    fields = ["email", "name", "comment"]
+    form_class = forms.ClientForm
     success_url = reverse_lazy("messenger:client_list")
 
     def get_success_url(self):
@@ -99,7 +100,7 @@ class MessageDeleteView(DeleteView):
 
 class MessageCreateView(CreateView):
     model = Message
-    fields = ["topic", "content"]
+    form_class = forms.MessageForm
     success_url = reverse_lazy("messenger:message_list")
 
     def get_success_url(self):
@@ -138,7 +139,7 @@ class MailingDeleteView(DeleteView):
 
 class MailingCreateView(CreateView):
     model = Mailing
-    fields = ["sending_start", "sending_end", "message", "clients"]
+    form_class = forms.MailingForm
     success_url = reverse_lazy("messenger:mailing_list")
 
     def get_success_url(self):

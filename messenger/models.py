@@ -20,7 +20,7 @@ class Message(models.Model):
     content = models.TextField(verbose_name="Текст письма")
 
     def __str__(self):
-        return f"{self.topic}"
+        return f'[ID: {self.pk}] "{self.topic}"'
 
     class Meta:
         verbose_name = "Письмо"
