@@ -44,26 +44,30 @@ class Command(BaseCommand):
 
         clients_emails = [client.email for client in mailing.clients.all()]
 
-        try:
-            if not clients_emails:
-                raise ValueError("Не указаны получатели для рассылки")
-
-            send_mail(
-                subject=mailing.message.topic,
-                message=mailing.message.content,
-                from_email=os.getenv("EMAIL_HOST_USER"),
-                recipient_list=clients_emails,
-                fail_silently=False,
-            )
-
-            mailing.status = "Запущена"
-            mailing.save()
-
-            attempt.status = "Успешно"
-            attempt.response = "Успешная попытка рассылки"
-            attempt.save()
-
-        except Exception as e:
+        if not clients_emails:
             attempt.status = "Не успешно"
-            attempt.response = f"{e}"
+            attempt.response = "Не указаны получатели для рассылки"
             attempt.save()
+
+        else:
+
+            try:
+                send_mail(
+                    subject=mailing.message.topic,
+                    message=mailing.message.content,
+                    from_email=os.getenv("EMAIL_HOST_USER"),
+                    recipient_list=clients_emails,
+                    fail_silently=False,
+                )
+
+                mailing.status = "Запущена"
+                mailing.save()
+
+                attempt.status = "Успешно"
+                attempt.response = "Успешная попытка рассылки"
+                attempt.save()
+
+            except Exception as e:
+                attempt.status = "Не успешно"
+                attempt.response = f"Произошла ошибка: {e}"
+                attempt.save()

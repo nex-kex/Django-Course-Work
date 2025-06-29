@@ -21,8 +21,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="attempt",
             name="attempt_time",
-            field=models.DateTimeField(
-                auto_now_add=True, verbose_name="Дата и время попытки"
-            ),
+            field=models.DateTimeField(auto_now_add=True, verbose_name="Дата и время попытки"),
         ),
     ]

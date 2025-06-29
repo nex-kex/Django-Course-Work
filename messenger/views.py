@@ -14,9 +14,7 @@ class MainTemplateView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["mailing_count"] = Mailing.objects.count()
-        context["active_mailing_count"] = Mailing.objects.filter(
-            status="Запущена"
-        ).count()
+        context["active_mailing_count"] = Mailing.objects.filter(status="Запущена").count()
         context["unique_clients_count"] = Client.objects.count()
         return context
 

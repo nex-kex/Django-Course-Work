@@ -23,6 +23,6 @@ class MailingAdmin(admin.ModelAdmin):
 
 @admin.register(Attempt)
 class AttemptAdmin(admin.ModelAdmin):
-    list_display = ("id", "status", "response")
+    list_display = ("id", "status", "response", "attempt_time")
     search_fields = ("response",)
     list_filter = ("status",)

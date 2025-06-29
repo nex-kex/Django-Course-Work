@@ -46,9 +46,7 @@ class Mailing(models.Model):
         related_name="mailing",
         verbose_name="Сообщение",
     )
-    clients = models.ManyToManyField(
-        Client, related_name="mailing", verbose_name="Получатели"
-    )
+    clients = models.ManyToManyField(Client, related_name="mailing", verbose_name="Получатели")
 
     class Meta:
         verbose_name = "Рассылка"
@@ -57,9 +55,7 @@ class Mailing(models.Model):
 
 
 class Attempt(models.Model):
-    attempt_time = models.DateTimeField(
-        auto_now_add=True, verbose_name="Дата и время попытки"
-    )
+    attempt_time = models.DateTimeField(auto_now_add=True, verbose_name="Дата и время попытки")
     status = models.CharField(
         max_length=10,
         choices=[("Успешно", "Успешно"), ("Не успешно", "Не успешно")],
