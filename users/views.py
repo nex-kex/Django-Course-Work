@@ -2,6 +2,7 @@ import os
 import secrets
 
 from django.contrib.auth import login
+from django.db.utils import IntegrityError
 from django.contrib.auth.models import Group
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect, render
@@ -37,53 +38,31 @@ class RegisterView(CreateView):
     success_url = reverse_lazy("users:email_notification")
 
     def form_valid(self, form):
-        user = form.save()
-        user.is_active = False
+        try:
+            user = form.save()
+            user.is_active = False
 
-        token = secrets.token_hex(16)
-        user.token = token
-        user.save()
+            token = secrets.token_hex(16)
+            user.token = token
+            user.save()
 
-        host = self.request.get_host()
-        url = f"http://{host}/users/email_confirm/{token}"
+            host = self.request.get_host()
+            url = f"http://{host}/users/email_confirm/{token}"
 
-        # user.groups.add(Group.objects.get(name="Пользователи"))
+            user.groups.add(Group.objects.get(name="Пользователи"))
+            login(self.request, user)
 
-        login(self.request, user)
-        self._send_confrirm_email(user.email, url)
-        return super().form_valid(form)
+            self._send_confrirm_email(user.email, url)
+            return super().form_valid(form)
+
+        except IntegrityError:
+            form.add_error("email", "Пользователь с таким email уже существует")
+            return self.form_invalid(form)
 
     def _send_confrirm_email(self, email, url):
         subject = "Подтверждение почты"
         message = f"Спасибо, что зарегистрировались на нашем сайте! Для подтверждения почты перейдите по ссылке: {url}"
         send_mail(subject, message, os.getenv("EMAIL_HOST_USER"), [email])
-
-
-# class UserForgotPassword(UpdateView):
-#     model = CustomUser
-#     template_name = "users/forgotten_password.html"
-#     success_url = reverse_lazy("users:email_notification")
-#
-#     def form_valid(self, form):
-#         user = form.save()
-#         user.is_active = False
-#
-#         token = secrets.token_hex(16)
-#         user.token = token
-#         user.save()
-#
-#         host = self.request.get_host()
-#         url = f"http://{host}/users/email_confirm/{token}"
-#
-#         login(self.request, user)
-#         self._send_confrirm_password_change_email(user.email, url)
-#         return super().form_valid(form)
-#
-#
-#     def _send_confrirm_password_change_email(self, email, url):
-#         subject = "Изменение пароля"
-#         message = f"Для активации профиля после изменения пароля перейдите по ссылке: {url}"
-#         send_mail(subject, message, os.getenv("EMAIL_HOST_USER"), [email])
 
 
 class UserDetailView(DetailView):
