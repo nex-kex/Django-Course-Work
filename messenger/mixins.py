@@ -16,3 +16,13 @@ class ManagerMixin:
         if not (user.groups.filter(name="Менеджеры").exists() or object.owner == user):
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
+
+
+class OwnerMixin:
+
+    def dispatch(self, request, *args, **kwargs):
+        user = request.user
+        object = self.get_object()
+        if not (object.owner == user):
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)

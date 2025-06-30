@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, TemplateView, UpdateView, View
 
 from . import forms
-from .mixins import ManagerMixin
+from .mixins import ManagerMixin, OwnerMixin
 from .models import Attempt, Client, Mailing, Message
 
 
@@ -56,13 +56,11 @@ class EndMailingView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
         return super().form_valid(form)
 
 
-class MailingStartTemplateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+class MailingStartTemplateView(LoginRequiredMixin, ManagerMixin, UpdateView):
     model = Mailing
     fields = []
     success_url = reverse_lazy("messenger:mailing_list")
     template_name = "messenger/mailing_confirm_start.html"
-    permission_required = "messenger.can_start_mailings"
-
 
 class MailingEndTemplateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Mailing
@@ -87,7 +85,7 @@ class ClientListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
         return Client.objects.filter(owner=user)
 
 
-class ClientDeleteView(LoginRequiredMixin, PermissionRequiredMixin, ManagerMixin, DeleteView):
+class ClientDeleteView(LoginRequiredMixin, PermissionRequiredMixin, OwnerMixin, DeleteView):
     model = Client
     success_url = reverse_lazy("messenger:client_list")
     permission_required = "messenger.delete_client"
@@ -110,7 +108,7 @@ class ClientCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         return reverse_lazy("messenger:client_detail", args=[self.object.pk])
 
 
-class ClientUpdateView(LoginRequiredMixin, PermissionRequiredMixin, ManagerMixin, UpdateView):
+class ClientUpdateView(LoginRequiredMixin, PermissionRequiredMixin, OwnerMixin, UpdateView):
     model = Client
     form_class = forms.ClientForm
     success_url = reverse_lazy("messenger:client_list")
@@ -136,7 +134,7 @@ class MessageListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
         return Message.objects.filter(owner=user)
 
 
-class MessageDeleteView(LoginRequiredMixin, PermissionRequiredMixin, ManagerMixin, DeleteView):
+class MessageDeleteView(LoginRequiredMixin, PermissionRequiredMixin, OwnerMixin, DeleteView):
     model = Message
     success_url = reverse_lazy("messenger:message_list")
     permission_required = "messenger.delete_message"
@@ -152,7 +150,7 @@ class MessageCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView)
         return reverse_lazy("messenger:message_detail", args=[self.object.pk])
 
 
-class MessageUpdateView(LoginRequiredMixin, PermissionRequiredMixin, ManagerMixin, UpdateView):
+class MessageUpdateView(LoginRequiredMixin, PermissionRequiredMixin, OwnerMixin, UpdateView):
     model = Message
     form_class = forms.MessageForm
     success_url = reverse_lazy("messenger:message_list")
@@ -190,7 +188,7 @@ class ActiveMailingListView(LoginRequiredMixin, PermissionRequiredMixin, ListVie
         return queryset.filter(owner=self.request.user)
 
 
-class MailingDeleteView(LoginRequiredMixin, PermissionRequiredMixin, ManagerMixin, DeleteView):
+class MailingDeleteView(LoginRequiredMixin, PermissionRequiredMixin, OwnerMixin, DeleteView):
     model = Mailing
     success_url = reverse_lazy("messenger:mailing_list")
     permission_required = "messenger.delete_mailing"
@@ -218,7 +216,7 @@ class MailingCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView)
         return reverse_lazy("messenger:mailing_detail", args=[self.object.pk])
 
 
-class MailingUpdateView(LoginRequiredMixin, PermissionRequiredMixin, ManagerMixin, UpdateView):
+class MailingUpdateView(LoginRequiredMixin, PermissionRequiredMixin, OwnerMixin, UpdateView):
     model = Mailing
     form_class = forms.MailingForm
     success_url = reverse_lazy("messenger:mailing_list")

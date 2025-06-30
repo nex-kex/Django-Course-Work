@@ -151,3 +151,27 @@ class UserListView(LoginRequiredMixin, ListView):
         if not (user.groups.filter(name="Менеджеры").exists()):
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
+
+
+class BlockUser(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = "users.can_block_users"
+
+    def post(self, request, *args, **kwargs):
+        user = get_object_or_404(CustomUser, pk=self.kwargs["pk"])
+
+        user.is_active = False
+        user.save()
+
+        return redirect("users:user_list")
+
+
+class UnblockUser(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = "users.can_block_users"
+
+    def post(self, request, *args, **kwargs):
+        user = get_object_or_404(CustomUser, pk=self.kwargs["pk"])
+
+        user.is_active = True
+        user.save()
+
+        return redirect("users:user_list")

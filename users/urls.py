@@ -8,7 +8,9 @@ from . import views
 app_name = UsersConfig.name
 
 urlpatterns = [
-    path("", views.UserListView.as_view(), name="users_list"),
+    path("", views.UserListView.as_view(), name="user_list"),
+    path("<int:pk>/block/", views.BlockUser.as_view(), name="block_user"),
+    path("<int:pk>/unblock/", views.UnblockUser.as_view(), name="unblock_user"),
     path("login/", LoginView.as_view(template_name="users/login.html"), name="login"),
     path("logout/", LogoutView.as_view(next_page="messenger:main"), name="logout"),
     path("register/", views.RegisterView.as_view(), name="register"),

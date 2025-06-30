@@ -16,6 +16,7 @@
             <th scope="col">ID пользователя</th>
             <th scope="col">Email пользователя</th>
             <th scope="col">Статус активности</th>
+            <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
@@ -24,6 +25,23 @@
             <td>{{ user.pk }}</td>
             <td>{{ user.email }}</td>
             <td>{{ user.is_active }}</td>
+            <td>
+                {% if user.is_active == True and perms.users.can_block_users %}
+                <form method="post" action="{% url 'users:block_user' user.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-danger m-1">
+                        Заблокировать
+                    </button>
+                </form>
+                {% else %}
+                <form method="post" action="{% url 'users:unblock_user' user.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-success m-1">
+                        Разблокировать
+                    </button>
+                </form>
+                {% endif %}
+            </td>
         </tr>
         {% endfor %}
         </tbody>
