@@ -113,7 +113,7 @@ class ClientCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
 class ClientUpdateView(LoginRequiredMixin, PermissionRequiredMixin, ManagerMixin, UpdateView):
     model = Client
-    fields = ["email", "name", "comment"]
+    form_class = forms.ClientForm
     success_url = reverse_lazy("messenger:client_list")
     permission_required = "messenger.change_client"
 
@@ -155,7 +155,7 @@ class MessageCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView)
 
 class MessageUpdateView(LoginRequiredMixin, PermissionRequiredMixin, ManagerMixin, UpdateView):
     model = Message
-    fields = ["topic", "content"]
+    form_class = forms.MessageForm
     success_url = reverse_lazy("messenger:message_list")
     permission_required = "messenger.change_message"
 
@@ -221,7 +221,7 @@ class MailingCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView)
 
 class MailingUpdateView(LoginRequiredMixin, PermissionRequiredMixin, ManagerMixin, UpdateView):
     model = Mailing
-    fields = ["sending_start", "sending_end", "message", "clients"]
+    form_class = forms.MailingForm
     success_url = reverse_lazy("messenger:mailing_list")
     permission_required = "messenger.change_mailing"
 
