@@ -8,7 +8,12 @@ from . import forms
 from .mixins import ManagerMixin, OwnerMixin
 from .models import Attempt, Client, Mailing, Message
 
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
+from django.core.cache import cache
 
+
+@method_decorator(cache_page(60 * 15), name='dispatch')
 class MainTemplateView(TemplateView):
     template_name = "messenger/main_page.html"
 
@@ -79,10 +84,19 @@ class ClientListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = "messenger.view_client"
 
     def get_queryset(self):
-        user = self.request.user
-        if user.groups.filter(name="Менеджеры").exists():
-            return Client.objects.all()
-        return Client.objects.filter(owner=user)
+
+        cache_key = f'client_list_queryset_user_{self.request.user.id}'
+        queryset = cache.get(cache_key)
+        if not queryset:
+            queryset = super().get_queryset()
+
+            user = self.request.user
+            if not user.groups.filter(name="Менеджеры").exists():
+                queryset = queryset.filter(owner=user)
+
+            cache.set(cache_key, queryset, 60 * 15)
+
+        return queryset
 
 
 class ClientDeleteView(LoginRequiredMixin, PermissionRequiredMixin, OwnerMixin, DeleteView):
@@ -128,10 +142,20 @@ class MessageListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = "messenger.view_message"
 
     def get_queryset(self):
-        user = self.request.user
-        if user.groups.filter(name="Менеджеры").exists():
-            return Message.objects.all()
-        return Message.objects.filter(owner=user)
+
+        cache_key = f'message_list_queryset_user_{self.request.user.id}'
+        queryset = cache.get(cache_key)
+        if not queryset:
+            queryset = super().get_queryset()
+            cache.set('message_list_queryset', queryset, 60 * 15)
+
+            user = self.request.user
+            if not user.groups.filter(name="Менеджеры").exists():
+                queryset = queryset.filter(owner=user)
+
+            cache.set(cache_key, queryset, 60 * 15)
+
+        return queryset
 
 
 class MessageDeleteView(LoginRequiredMixin, PermissionRequiredMixin, OwnerMixin, DeleteView):
@@ -170,10 +194,19 @@ class MailingListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = "messenger.view_mailing"
 
     def get_queryset(self):
-        user = self.request.user
-        if user.groups.filter(name="Менеджеры").exists():
-            return Mailing.objects.all()
-        return Mailing.objects.filter(owner=user)
+
+        cache_key = f'mailing_list_queryset_user_{self.request.user.id}'
+        queryset = cache.get(cache_key)
+        if not queryset:
+            queryset = super().get_queryset()
+
+            user = self.request.user
+            if not user.groups.filter(name="Менеджеры").exists():
+                queryset = queryset.filter(owner=user)
+
+            cache.set(cache_key, queryset, 60 * 15)
+
+        return queryset
 
 
 class ActiveMailingListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
@@ -181,11 +214,19 @@ class ActiveMailingListView(LoginRequiredMixin, PermissionRequiredMixin, ListVie
     permission_required = "messenger.view_mailing"
 
     def get_queryset(self):
-        queryset = super().get_queryset().filter(status="Запущена")
-        user = self.request.user
-        if user.groups.filter(name="Менеджеры").exists():
-            return queryset
-        return queryset.filter(owner=self.request.user)
+
+        cache_key = f'active_mailing_list_queryset_user_{self.request.user.id}'
+        queryset = cache.get(cache_key)
+        if not queryset:
+            queryset = super().get_queryset().filter(status="Запущена")
+
+            user = self.request.user
+            if not user.groups.filter(name="Менеджеры").exists():
+                queryset.filter(owner=self.request.user)
+
+            cache.set(cache_key, queryset, 60 * 15)
+
+        return queryset
 
 
 class MailingDeleteView(LoginRequiredMixin, PermissionRequiredMixin, OwnerMixin, DeleteView):
@@ -231,8 +272,16 @@ class UserClients(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = "messenger.view_client"
 
     def get_queryset(self):
-        user = self.request.user
-        return Client.objects.filter(owner=user)
+
+        cache_key = f'user_clients_queryset_user_{self.request.user.id}'
+        queryset = cache.get(cache_key)
+
+        if not queryset:
+            user = self.request.user
+            queryset = super().get_queryset().filter(owner=user)
+            cache.set(cache_key, queryset, 60 * 15)
+
+        return queryset
 
 
 class UserMailings(LoginRequiredMixin, PermissionRequiredMixin, ListView):
@@ -240,5 +289,13 @@ class UserMailings(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = "messenger.view_mailing"
 
     def get_queryset(self):
-        user = self.request.user
-        return Mailing.objects.filter(owner=user)
+
+        cache_key = f'user_mailings_queryset_user_{self.request.user.id}'
+        queryset = cache.get(cache_key)
+
+        if not queryset:
+            user = self.request.user
+            queryset = super().get_queryset().filter(owner=user)
+            cache.set(cache_key, queryset, 60 * 15)
+
+        return queryset

@@ -101,6 +101,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Для того чтобы письма не отправлялись на реальные адреса
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
+# Для того чтобы письма отправлялись на реальные адреса
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
 EMAIL_HOST = os.getenv("EMAIL_HOST")
 EMAIL_PORT = os.getenv("EMAIL_PORT")
 EMAIL_USE_TLS = True if os.getenv("EMAIL_USE_TLS") == "True" else False
@@ -114,3 +117,10 @@ LOGIN_REDIRECT_URL = "messenger:main"
 LOGOUT_REDIRECT_URL = "messenger:main"
 
 LOGIN_URL = "users:login"
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',
+    }
+}
