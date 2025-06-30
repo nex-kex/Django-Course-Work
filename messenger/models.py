@@ -7,8 +7,13 @@ class Client(models.Model):
     email = models.EmailField(unique=True, verbose_name="Email")
     name = models.CharField(max_length=150, verbose_name="ФИО")
     comment = models.TextField(null=True, blank=True, verbose_name="Комментарий")
-    owner = models.ForeignKey(users.models.CustomUser, on_delete=models.CASCADE,
-                              related_name="client_owners", verbose_name="Создатель", null=True)
+    owner = models.ForeignKey(
+        users.models.CustomUser,
+        on_delete=models.CASCADE,
+        related_name="client_owners",
+        verbose_name="Создатель",
+        null=True,
+    )
 
     def __str__(self):
         return f"{self.name}"
@@ -22,8 +27,13 @@ class Client(models.Model):
 class Message(models.Model):
     topic = models.CharField(max_length=100, verbose_name="Тема письма")
     content = models.TextField(verbose_name="Текст письма")
-    owner = models.ForeignKey(users.models.CustomUser, on_delete=models.CASCADE,
-                              related_name="message_owners", verbose_name="Создатель", null=True)
+    owner = models.ForeignKey(
+        users.models.CustomUser,
+        on_delete=models.CASCADE,
+        related_name="message_owners",
+        verbose_name="Создатель",
+        null=True,
+    )
 
     def __str__(self):
         return f'[ID: {self.pk}] "{self.topic}"'
@@ -53,8 +63,9 @@ class Mailing(models.Model):
         verbose_name="Сообщение",
     )
     clients = models.ManyToManyField(Client, related_name="mailing", verbose_name="Получатели")
-    owner = models.ForeignKey(users.models.CustomUser, on_delete=models.CASCADE,
-                              related_name="mailings", verbose_name="Создатель", null=True)
+    owner = models.ForeignKey(
+        users.models.CustomUser, on_delete=models.CASCADE, related_name="mailings", verbose_name="Создатель", null=True
+    )
 
     class Meta:
         verbose_name = "Рассылка"

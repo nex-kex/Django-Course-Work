@@ -2,12 +2,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.core.management import call_command
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
-                                  TemplateView, UpdateView, View)
+from django.views.generic import CreateView, DeleteView, DetailView, ListView, TemplateView, UpdateView, View
 
 from . import forms
 from .mixins import ManagerMixin
-from .models import Client, Mailing, Message, Attempt
+from .models import Attempt, Client, Mailing, Message
 
 
 class MainTemplateView(TemplateView):
@@ -25,7 +24,7 @@ class StatisticsView(TemplateView):
     template_name = "messenger/statistics.html"
 
     def get_queryset(self):
-        return Attempt.objects.filter(mailing__owner_id=self.kwargs.get('pk'))
+        return Attempt.objects.filter(mailing__owner_id=self.kwargs.get("pk"))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -205,7 +204,7 @@ class MailingCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView)
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs['user'] = self.request.user
+        kwargs["user"] = self.request.user
         return kwargs
 
     def form_valid(self, form):

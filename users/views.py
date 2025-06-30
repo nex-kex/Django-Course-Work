@@ -2,16 +2,14 @@ import os
 import secrets
 
 from django.contrib.auth import login
-from django.db.utils import IntegrityError
 from django.contrib.auth.models import Group
 from django.core.mail import send_mail
+from django.db.utils import IntegrityError
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import (CreateView, DetailView, TemplateView,
-                                  UpdateView)
+from django.views.generic import CreateView, DetailView, TemplateView, UpdateView
 
-from messenger.models import Attempt
 from .forms import CustomUserCreationForm, PasswordEditForm, UserEditForm
 from .models import CustomUser
 
