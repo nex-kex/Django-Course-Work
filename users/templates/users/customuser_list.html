@@ -1,0 +1,32 @@
+{% extends 'messenger/base.html' %}
+
+{% block title %}Список пользователей{% endblock %}
+
+{% block content %}
+
+<h1 class="text-center m-3">
+    Список пользователей
+    <hr class="border border-primary border-1 opacity-75">
+</h1>
+
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">ID пользователя</th>
+            <th scope="col">Email пользователя</th>
+            <th scope="col">Статус активности</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in object_list %}
+        <tr>
+            <td>{{ user.pk }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.is_active }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -64,7 +64,7 @@ class Command(BaseCommand):
                 mailing.save()
 
                 attempt.status = "Успешно"
-                attempt.response = "Успешная попытка рассылки"
+                attempt.response = "Успешная рассылка"
                 attempt.save()
 
             except Exception as e:

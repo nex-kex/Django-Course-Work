@@ -41,7 +41,7 @@
                 <h2>Мои клиенты</h2>
                 <div class="card-body text-primary">
                     <a class="btn btn-outline-primary" href="{% url 'messenger:user_clients' user.pk %}">
-                        Все клиенты
+                        Мои клиенты
                     </a>
                     <a class="btn btn-outline-primary" href="{% url 'messenger:client_create' %}">
                         Создать нового
@@ -54,7 +54,7 @@
                 <h2>Мои рассылки</h2>
                 <div class="card-body text-primary">
                     <a class="btn btn-outline-primary" href="{% url 'messenger:user_mailings' user.pk %}">
-                        Все рассылки
+                        Мои рассылки
                     </a>
                     <a class="btn btn-outline-primary" href="{% url 'messenger:mailing_create' %}">
                         Создать новую
