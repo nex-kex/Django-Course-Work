@@ -13,6 +13,12 @@ class Client(models.Model):
         verbose_name = "Клиент"
         verbose_name_plural = "Клиенты"
         ordering = ["name", "email"]
+        permissions = [
+            ("can_add_clients", "Can add clients"),
+            ("can_view_clients", "Can view clients"),
+            ("can_update_clients", "Can update clients"),
+            ("can_delete_clients", "Can delete clients"),
+        ]
 
 
 class Message(models.Model):
@@ -52,6 +58,14 @@ class Mailing(models.Model):
         verbose_name = "Рассылка"
         verbose_name_plural = "Рассылки"
         ordering = ["-status", "sending_start"]
+        permissions = [
+            ("can_add_mailings", "Can add mailings"),
+            ("can_view_mailings", "Can view mailings"),
+            ("can_update_mailings", "Can update mailings"),
+            ("can_delete_mailings", "Can delete mailings"),
+            ("can_start_mailings", "Can start mailings"),
+            ("can_end_mailings", "Can end mailings"),
+        ]
 
 
 class Attempt(models.Model):
