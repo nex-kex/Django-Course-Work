@@ -8,7 +8,7 @@ class Client(models.Model):
     name = models.CharField(max_length=150, verbose_name="ФИО")
     comment = models.TextField(null=True, blank=True, verbose_name="Комментарий")
     owner = models.ForeignKey(users.models.CustomUser, on_delete=models.CASCADE,
-                              related_name="clients", verbose_name="Создатель", null=True)
+                              related_name="client_owners", verbose_name="Создатель", null=True)
 
     def __str__(self):
         return f"{self.name}"
@@ -22,6 +22,8 @@ class Client(models.Model):
 class Message(models.Model):
     topic = models.CharField(max_length=100, verbose_name="Тема письма")
     content = models.TextField(verbose_name="Текст письма")
+    owner = models.ForeignKey(users.models.CustomUser, on_delete=models.CASCADE,
+                              related_name="message_owners", verbose_name="Создатель", null=True)
 
     def __str__(self):
         return f'[ID: {self.pk}] "{self.topic}"'
