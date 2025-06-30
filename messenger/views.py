@@ -6,7 +6,7 @@ from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   TemplateView, UpdateView, View)
 
 from . import forms
-from .models import Client, Mailing, Message
+from .models import Client, Mailing, Message, Attempt
 
 
 class MainTemplateView(TemplateView):
@@ -17,6 +17,21 @@ class MainTemplateView(TemplateView):
         context["mailing_count"] = Mailing.objects.count()
         context["active_mailing_count"] = Mailing.objects.filter(status="Запущена").count()
         context["unique_clients_count"] = Client.objects.count()
+        return context
+
+
+class StatisticsView(TemplateView):
+    template_name = "messenger/statistics.html"
+
+    def get_queryset(self):
+        return Attempt.objects.filter(mailing__owner_id=self.kwargs.get('pk'))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        queryset = self.get_queryset()
+        context["successful_attempts"] = queryset.filter(status="Успешно").count()
+        context["unsuccessful_attempts"] = queryset.filter(status="Не успешно").count()
+        context["total_mailings"] = queryset.count()
         return context
 
 
@@ -167,6 +182,13 @@ class MailingCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView)
     success_url = reverse_lazy("messenger:mailing_list")
     permission_required = "messenger.add_mailing"
 
+    def form_valid(self, form):
+        mailing = form.save()
+        user = self.request.user
+        mailing.owner = user
+        mailing.save()
+        return super().form_valid(form)
+
     def get_success_url(self):
         return reverse_lazy("messenger:mailing_detail", args=[self.object.pk])
 
@@ -179,3 +201,34 @@ class MailingUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
 
     def get_success_url(self):
         return reverse_lazy("messenger:mailing_detail", args=[self.kwargs.get("pk")])
+
+
+class UserClients(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    model = Client
+    permission_required = "messenger.view_client"
+
+    def get_queryset(self):
+        user = self.request.user
+        return Client.objects.filter(owner=user)
+
+
+class UserMailings(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    model = Mailing
+    permission_required = "messenger.view_mailing"
+
+    def get_queryset(self):
+        user = self.request.user
+        return Mailing.objects.filter(owner=user)
+
+
+# class SuccessfulUserAttemptsListView(LoginRequiredMixin, View):
+#     model = Attempt
+#
+#     def get_queryset(self):
+#         user = self.request.user
+#         return Attempt.objects.filter(mailing__owner=user, status="Успешно")
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context["successful_attempts"] = self.get_queryset().count()
+#         return context

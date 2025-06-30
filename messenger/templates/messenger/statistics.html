@@ -1,0 +1,55 @@
+{% extends 'messenger/base.html' %}
+
+{% block title %}Статистика{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card border-primary m-3 p-3">
+                <div class="card-body">
+                    <h2 class="text-center">Статистика</h2>
+
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <p class="mt-2">
+                                    Количество успешных рассылок:
+                                </p>
+                            </td>
+                            <td class="text-center">
+                                {{ successful_attempts|default:0 }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="mt-2">
+                                    Количество неуспешных рассылок:
+                                </p>
+                            </td>
+                            <td class="text-center">
+                                {{ unsuccessful_attempts|default:0 }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="mt-2">
+                                    Количество отправленных рассылок:
+                                </p>
+                            </td>
+                            <td class="text-center">
+                                {{ total_mailings|default:0 }}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

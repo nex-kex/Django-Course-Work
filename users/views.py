@@ -11,6 +11,7 @@ from django.views import View
 from django.views.generic import (CreateView, DetailView, TemplateView,
                                   UpdateView)
 
+from messenger.models import Attempt
 from .forms import CustomUserCreationForm, PasswordEditForm, UserEditForm
 from .models import CustomUser
 

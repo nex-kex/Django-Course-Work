@@ -22,8 +22,6 @@ class Client(models.Model):
 class Message(models.Model):
     topic = models.CharField(max_length=100, verbose_name="Тема письма")
     content = models.TextField(verbose_name="Текст письма")
-    owner = models.ForeignKey(users.models.CustomUser, on_delete=models.CASCADE,
-                              related_name="messages", verbose_name="Создатель", null=True)
 
     def __str__(self):
         return f'[ID: {self.pk}] "{self.topic}"'
@@ -53,6 +51,8 @@ class Mailing(models.Model):
         verbose_name="Сообщение",
     )
     clients = models.ManyToManyField(Client, related_name="mailing", verbose_name="Получатели")
+    owner = models.ForeignKey(users.models.CustomUser, on_delete=models.CASCADE,
+                              related_name="mailings", verbose_name="Создатель", null=True)
 
     class Meta:
         verbose_name = "Рассылка"

@@ -23,6 +23,10 @@ urlpatterns = [
     path("message/list/", views.MessageListView.as_view(), name="message_list"),
     path("mailing/list/", views.MailingListView.as_view(), name="mailing_list"),
     path("mailing/list/active/", views.ActiveMailingListView.as_view(), name="mailing_list_active"),
+    # Список клиентов и рассылок пользователя
+    path("users/<int:pk>/client/list/", views.UserClients.as_view(), name="user_clients"),
+    path("users/<int:pk>/mailing/list/", views.UserMailings.as_view(), name="user_mailings"),
+    path("users/<int:pk>/statistics/", views.StatisticsView.as_view(), name="statistics"),
     # Детали объектов
     path("client/<int:pk>/", views.ClientDetailView.as_view(), name="client_detail"),
     path("message/<int:pk>/", views.MessageDetailView.as_view(), name="message_detail"),
