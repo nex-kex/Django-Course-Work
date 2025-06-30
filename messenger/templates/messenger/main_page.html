@@ -59,6 +59,7 @@
         </div>
         <div class="col-2"></div>
     </div>
+    {% if "Менеджеры" in user.groups.all|join:", " %}
     <div class="row">
         <div class="col-4">
             <div class="card border-primary mb-3 p-3 text-center">
@@ -100,5 +101,6 @@
             </div>
         </div>
     </div>
+    {% endif %}
 </div>
 {% endblock %}

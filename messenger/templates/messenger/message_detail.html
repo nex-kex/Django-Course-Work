@@ -19,8 +19,10 @@
                 </h3>
                 <div class="card-body">
                     <p class="card-text">{{ object.content }}</p>
-                    <a href="{% url 'messenger:message_update' object.pk %}" class="btn btn-secondary">Редактировать</a>
-                    <a href="{% url 'messenger:message_delete' object.pk %}" class="btn btn-danger">Удалить</a>
+                    {% if object.owner == user %}
+                        <a href="{% url 'messenger:message_update' object.pk %}" class="btn btn-secondary">Редактировать</a>
+                        <a href="{% url 'messenger:message_delete' object.pk %}" class="btn btn-danger">Удалить</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

@@ -23,14 +23,18 @@
                         Период действия: {{ object.sending_start | date:"H:i:s d.m.Y" }} -
                         {{ object.sending_end | date:"H:i:s d.m.Y" }}
                     </p>
-                    <a href="{% url 'messenger:mailing_update' object.pk %}" class="btn btn-secondary">Редактировать
-                        рассылку</a>
-                    {% if mailing.status == "Запущена" %}
-                    <a class="btn btn-outline-danger" href="{% url 'messenger:mailing_end_confirm' mailing.pk %}">
-                        Завершить досрочно
-                    </a>
+                    {% if object.owner == user %}
+                        <a href="{% url 'messenger:mailing_update' object.pk %}" class="btn btn-secondary">Редактировать
+                            рассылку</a>
+                        <a href="{% url 'messenger:mailing_delete' object.pk %}" class="btn btn-danger">Удалить рассылку</a>
                     {% endif %}
-                    <a href="{% url 'messenger:mailing_delete' object.pk %}" class="btn btn-danger">Удалить рассылку</a>
+                    {% if mailing.status == "Запущена" %}
+                        {% if object.owner == user or "Менеджеры" in user.groups.all|join:", " %}
+                            <a class="btn btn-outline-danger" href="{% url 'messenger:mailing_end_confirm' mailing.pk %}">
+                                Завершить досрочно
+                            </a>
+                        {% endif %}
+                    {% endif %}
                 </div>
             </div>
             <div class="card border-primary m-4 p-3">
@@ -39,10 +43,12 @@
                 </h3>
                 <div class="card-body">
                     <p class="card-text">{{ object.message.content }}</p>
-                    <a href="{% url 'messenger:message_update' object.message.pk %}" class="btn btn-secondary">Редактировать
-                        сообщение</a>
-                    <a href="{% url 'messenger:message_delete' object.message.pk %}" class="btn btn-danger">Удалить
-                        сообщение</a>
+                    {% if object.owner == user %}
+                        <a href="{% url 'messenger:message_update' object.message.pk %}" class="btn btn-secondary">Редактировать
+                            сообщение</a>
+                        <a href="{% url 'messenger:message_delete' object.message.pk %}" class="btn btn-danger">Удалить
+                            сообщение</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

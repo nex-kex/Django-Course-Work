@@ -20,8 +20,10 @@
                 <div class="card-body">
                     <h5 class="card-title">Email: {{ object.email }}</h5>
                     <p class="card-text">{{ object.comment }}</p>
-                    <a href="{% url 'messenger:client_update' object.pk %}" class="btn btn-secondary">Редактировать</a>
-                    <a href="{% url 'messenger:client_delete' object.pk %}" class="btn btn-danger">Удалить</a>
+                    {% if object.owner == user %}
+                        <a href="{% url 'messenger:client_update' object.pk %}" class="btn btn-secondary">Редактировать</a>
+                        <a href="{% url 'messenger:client_delete' object.pk %}" class="btn btn-danger">Удалить</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
