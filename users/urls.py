@@ -14,4 +14,5 @@ urlpatterns = [
     path("<int:pk>/", views.UserDetailView.as_view(), name="user_detail"),
     path("<int:pk>/update/", views.UserUpdateView.as_view(), name="user_update"),
     path("<int:pk>/update_password/", views.UserUpdatePasswordView.as_view(), name="user_update_password"),
+    path("email_confirm/<str:token>/", views.email_verifications, name="email_confirm")
 ]

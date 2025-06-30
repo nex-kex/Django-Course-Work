@@ -25,10 +25,7 @@ class PasswordEditForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = CustomUser
-        fields = (
-            "password1",
-            "password2",
-        )
+        fields = ()
 
     def __init__(self, *args, **kwargs):
         super(PasswordEditForm, self).__init__(*args, **kwargs)

@@ -9,20 +9,24 @@
     <div class="col-6">
         <div class="card border-primary m-4 p-3">
             <div class="card-body">
+                {% if object.first_name or object.last_name %}
                 <h1 class="fw-bold mb-3">
                     {{ object.first_name }} {{ object.last_name }}
                 </h1>
+                {% endif %}
                 <p class="card-text">
                     Email: {{ object.email }}
                 </p>
+                {% if object.phone_number %}
                 <p class="card-text">
                     Телефон: {{ object.phone_number }}
                 </p>
+                {% endif %}
                 <div>
                     <form method="post">
                         <a href="{% url 'users:user_update' object.pk %}"
                            class="btn btn-outline-primary">Редактировать профиль</a>
-                        <a href="{% url 'users:user_update' object.pk %}"
+                        <a href="{% url 'users:user_update_password' object.pk %}"
                            class="btn btn-outline-primary">Изменить пароль</a>
                     </form>
                 </div>

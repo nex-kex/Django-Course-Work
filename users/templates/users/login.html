@@ -7,6 +7,9 @@
         <div class="card border-primary m-4 p-3">
             <div class="card-body">
                 <h2 class="mb-3">Вход</h2>
+                <h6 class="mb-3">
+                    Если после регистрации не получается войти - проверьте и подтвердите почту, перейдя по ссылке в сообщении.
+                </h6>
                 <form method="post">
                     {% csrf_token %}
                     {{ form.as_p }}
