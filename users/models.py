@@ -20,7 +20,6 @@ class CustomUser(AbstractUser):
         ordering = ["email"]
         permissions = [
             ("can_block_users", "Can block users"),
-            ("can_view_users", "Can view users"),
         ]
 
     def __str__(self):

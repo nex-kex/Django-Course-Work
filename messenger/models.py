@@ -1,10 +1,14 @@
 from django.db import models
 
+import users.models
+
 
 class Client(models.Model):
     email = models.EmailField(unique=True, verbose_name="Email")
     name = models.CharField(max_length=150, verbose_name="ФИО")
     comment = models.TextField(null=True, blank=True, verbose_name="Комментарий")
+    owner = models.ForeignKey(users.models.CustomUser, on_delete=models.CASCADE,
+                              related_name="clients", verbose_name="Создатель", null=True)
 
     def __str__(self):
         return f"{self.name}"
@@ -13,17 +17,13 @@ class Client(models.Model):
         verbose_name = "Клиент"
         verbose_name_plural = "Клиенты"
         ordering = ["name", "email"]
-        permissions = [
-            ("can_add_clients", "Can add clients"),
-            ("can_view_clients", "Can view clients"),
-            ("can_update_clients", "Can update clients"),
-            ("can_delete_clients", "Can delete clients"),
-        ]
 
 
 class Message(models.Model):
     topic = models.CharField(max_length=100, verbose_name="Тема письма")
     content = models.TextField(verbose_name="Текст письма")
+    owner = models.ForeignKey(users.models.CustomUser, on_delete=models.CASCADE,
+                              related_name="messages", verbose_name="Создатель", null=True)
 
     def __str__(self):
         return f'[ID: {self.pk}] "{self.topic}"'
@@ -59,10 +59,6 @@ class Mailing(models.Model):
         verbose_name_plural = "Рассылки"
         ordering = ["-status", "sending_start"]
         permissions = [
-            ("can_add_mailings", "Can add mailings"),
-            ("can_view_mailings", "Can view mailings"),
-            ("can_update_mailings", "Can update mailings"),
-            ("can_delete_mailings", "Can delete mailings"),
             ("can_start_mailings", "Can start mailings"),
             ("can_end_mailings", "Can end mailings"),
         ]

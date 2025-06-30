@@ -36,4 +36,35 @@
     <div class="col-3"></div>
 </div>
 
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <div class="card border-primary mb-3 p-3 text-center">
+                <h3>Мои клиенты</h3>
+                <div class="card-body text-primary">
+                    <a class="btn btn-outline-primary" href="{% url 'messenger:client_list' %}">
+                        Все клиенты
+                    </a>
+                    <a class="btn btn-outline-primary" href="{% url 'messenger:client_create' %}">
+                        Создать нового
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card border-primary mb-3 p-3 text-center">
+                <h3>Мои рассылки</h3>
+                <div class="card-body text-primary">
+                    <a class="btn btn-outline-primary" href="{% url 'messenger:mailing_list' %}">
+                        Все рассылки
+                    </a>
+                    <a class="btn btn-outline-primary" href="{% url 'messenger:mailing_create' %}">
+                        Создать новую
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
