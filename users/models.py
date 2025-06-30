@@ -9,6 +9,7 @@ class CustomUser(AbstractUser):
     phone_number = models.CharField(max_length=15, blank=True, null=True)
 
     token = models.CharField(max_length=100, verbose_name="Token", blank=True, null=True)
+    reset_password_token = models.CharField(max_length=100, verbose_name="Reset password token", blank=True, null=True)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]

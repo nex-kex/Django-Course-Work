@@ -10,7 +10,7 @@
         <div class="col-6">
             <div class="card border-primary m-4 p-3">
                 <div class="card-body">
-                    <form method="post" enctype="multipart/form-data">
+                    <form method="post">
                         {% csrf_token %}
                         {{ form.as_p }}
 
@@ -18,7 +18,7 @@
                         <button type="submit" class="btn btn-primary m-2">
                             Сохранить
                         </button>
-                        <a class="btn" type="submit" class="btn btn-secondary m-2" href="{% url 'users:user_detail' user.pk %}">
+                        <a type="submit" class="btn btn-secondary m-2" href="{% url 'messenger:main' %}">
                             Отмена
                         </a>
                         {% else %}
