@@ -13,6 +13,8 @@ class UserEditForm(forms.ModelForm):
             "first_name",
             "last_name",
             "phone_number",
+            "country",
+            "avatar",
         )
 
     def __init__(self, *args, **kwargs):
@@ -41,6 +43,8 @@ class PasswordEditForm(UserCreationForm):
 
 class CustomUserCreationForm(UserCreationForm):
     phone_number = forms.CharField(max_length=15, required=False, help_text="Номер телефона. Необязательное поле.")
+    avatar = forms.ImageField(required=False, help_text="Изображение. Необязательное поле.")
+    country = forms.CharField(max_length=50, required=False, help_text="Страна. Необязательное поле.")
 
     def __init__(self, *args, **kwargs):
         super(CustomUserCreationForm, self).__init__(*args, **kwargs)
@@ -54,6 +58,8 @@ class CustomUserCreationForm(UserCreationForm):
             "first_name",
             "last_name",
             "phone_number",
+            "country",
+            "avatar",
             "password1",
             "password2",
         )
