@@ -2,7 +2,8 @@ import os
 import secrets
 
 from django.contrib.auth import login
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import (LoginRequiredMixin,
+                                        PermissionRequiredMixin)
 from django.contrib.auth.models import Group
 from django.core.exceptions import PermissionDenied
 from django.core.mail import send_mail
@@ -10,9 +11,9 @@ from django.db.utils import IntegrityError
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import CreateView, DetailView, TemplateView, UpdateView, ListView
+from django.views.generic import (CreateView, DetailView, ListView,
+                                  TemplateView, UpdateView)
 
-from messenger.mixins import ManagerMixin
 from .forms import CustomUserCreationForm, PasswordEditForm, UserEditForm
 from .models import CustomUser
 
@@ -98,7 +99,6 @@ class UserChangePassword(UpdateView):
             user = get_object_or_404(CustomUser, pk=self.kwargs["pk"], reset_password_token=self.kwargs["token"])
             return user
         return super().get_object(queryset)
-
 
     def form_valid(self, form):
         if "token" in self.kwargs:

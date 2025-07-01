@@ -18,7 +18,10 @@ class Migration(migrations.Migration):
             name="mailing",
             options={
                 "ordering": ["-status", "sending_start"],
-                "permissions": [("can_start_mailings", "Can start mailings"), ("can_end_mailings", "Can end mailings")],
+                "permissions": [
+                    ("can_start_mailings", "Can start mailings"),
+                    ("can_end_mailings", "Can end mailings"),
+                ],
                 "verbose_name": "Рассылка",
                 "verbose_name_plural": "Рассылки",
             },

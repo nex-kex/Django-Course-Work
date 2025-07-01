@@ -1,19 +1,19 @@
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import (LoginRequiredMixin,
+                                        PermissionRequiredMixin)
+from django.core.cache import cache
 from django.core.management import call_command
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DeleteView, DetailView, ListView, TemplateView, UpdateView, View
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
+from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
+                                  TemplateView, UpdateView, View)
 
 from . import forms
 from .mixins import ManagerMixin, OwnerMixin
 from .models import Attempt, Client, Mailing, Message
 
-from django.views.decorators.cache import cache_page
-from django.utils.decorators import method_decorator
-from django.core.cache import cache
 
-
-@method_decorator(cache_page(60 * 15), name='dispatch')
 class MainTemplateView(TemplateView):
     template_name = "messenger/main_page.html"
 
@@ -67,6 +67,7 @@ class MailingStartTemplateView(LoginRequiredMixin, ManagerMixin, UpdateView):
     success_url = reverse_lazy("messenger:mailing_list")
     template_name = "messenger/mailing_confirm_start.html"
 
+
 class MailingEndTemplateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Mailing
     fields = []
@@ -85,7 +86,7 @@ class ClientListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
     def get_queryset(self):
 
-        cache_key = f'client_list_queryset_user_{self.request.user.id}'
+        cache_key = f"client_list_queryset_user_{self.request.user.id}"
         queryset = cache.get(cache_key)
         if not queryset:
             queryset = super().get_queryset()
@@ -143,11 +144,11 @@ class MessageListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
     def get_queryset(self):
 
-        cache_key = f'message_list_queryset_user_{self.request.user.id}'
+        cache_key = f"message_list_queryset_user_{self.request.user.id}"
         queryset = cache.get(cache_key)
         if not queryset:
             queryset = super().get_queryset()
-            cache.set('message_list_queryset', queryset, 60 * 15)
+            cache.set("message_list_queryset", queryset, 60 * 15)
 
             user = self.request.user
             if not user.groups.filter(name="Менеджеры").exists():
@@ -195,7 +196,7 @@ class MailingListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
     def get_queryset(self):
 
-        cache_key = f'mailing_list_queryset_user_{self.request.user.id}'
+        cache_key = f"mailing_list_queryset_user_{self.request.user.id}"
         queryset = cache.get(cache_key)
         if not queryset:
             queryset = super().get_queryset()
@@ -215,7 +216,7 @@ class ActiveMailingListView(LoginRequiredMixin, PermissionRequiredMixin, ListVie
 
     def get_queryset(self):
 
-        cache_key = f'active_mailing_list_queryset_user_{self.request.user.id}'
+        cache_key = f"active_mailing_list_queryset_user_{self.request.user.id}"
         queryset = cache.get(cache_key)
         if not queryset:
             queryset = super().get_queryset().filter(status="Запущена")
@@ -273,7 +274,7 @@ class UserClients(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
     def get_queryset(self):
 
-        cache_key = f'user_clients_queryset_user_{self.request.user.id}'
+        cache_key = f"user_clients_queryset_user_{self.request.user.id}"
         queryset = cache.get(cache_key)
 
         if not queryset:
@@ -290,7 +291,7 @@ class UserMailings(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
     def get_queryset(self):
 
-        cache_key = f'user_mailings_queryset_user_{self.request.user.id}'
+        cache_key = f"user_mailings_queryset_user_{self.request.user.id}"
         queryset = cache.get(cache_key)
 
         if not queryset:
