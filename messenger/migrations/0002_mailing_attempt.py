@@ -29,9 +29,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "sending_end",
-                    models.DateTimeField(
-                        verbose_name="Дата и время окончания отправки"
-                    ),
+                    models.DateTimeField(verbose_name="Дата и время окончания отправки"),
                 ),
                 (
                     "status",

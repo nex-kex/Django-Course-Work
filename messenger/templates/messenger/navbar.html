@@ -1,0 +1,59 @@
+<nav class="navbar navbar-expand-lg bg-primary navbar-dark">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                {% if not user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'users:login' %}">Войти</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'users:register' %}">Зарегистрироваться</a>
+                </li>
+
+                {% else %}
+                <li class="nav-item">
+                    <a href="{% url 'users:user_detail' user.pk %}" class="nav-link active">
+                        Профиль
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'messenger:statistics' user.pk %}" class="nav-link active">
+                        Статистика
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <form method="post" action="{% url 'users:logout' %}" style="display: inline">
+                        {% csrf_token %}
+                        <button type="submit" class="nav-link active">
+                            Выйти
+                        </button>
+                    </form>
+                </li>
+
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link active" href="/">Главная</a>
+                </li>
+
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'messenger:client_list' %}">Клиенты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'messenger:message_list' %}">Сообщения</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'messenger:mailing_list' %}">Рассылки</a>
+                    </li>
+                    {% if perms.users.view_users %}
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'users:user_list' %}">Пользователи</a>
+                    </li>
+                    {% endif %}
+                {% endif %}
+
+            </ul>
+        </div>
+    </div>
+</nav>
