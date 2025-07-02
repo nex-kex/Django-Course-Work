@@ -1,0 +1,294 @@
+[
+{
+    "model": "messenger.client",
+    "pk": 1,
+    "fields": {
+        "email": "ivan.petrov@example.com",
+        "name": "Иван Петров Сергеевич",
+        "comment": "Регулярный клиент с 2020 года. Предпочитает email-рассылку.",
+        "owner": 1
+    }
+},
+{
+    "model": "messenger.client",
+    "pk": 3,
+    "fields": {
+        "email": "alexander.volkov@gmail.com",
+        "name": "Волков Александр Игоревич",
+        "comment": "Требуется срочный ответ по заказу #4512.",
+        "owner": 1
+    }
+},
+{
+    "model": "messenger.client",
+    "pk": 4,
+    "fields": {
+        "email": "olga.ivanova@yandex.ru",
+        "name": "Иванова Ольга Петровна",
+        "comment": "Интересуются новыми продуктами линейки 'Premium'.",
+        "owner": 1
+    }
+},
+{
+    "model": "messenger.client",
+    "pk": 5,
+    "fields": {
+        "email": "dmitry.kuznetsov@company.org",
+        "name": "Кузнецов Дмитрий Александрович",
+        "comment": "Технический директор. Контактное лицо для переговоров.",
+        "owner": 1
+    }
+},
+{
+    "model": "messenger.client",
+    "pk": 6,
+    "fields": {
+        "email": "ekaterina.smirnova@gmail.com",
+        "name": "Смирнова Екатерина Олеговна",
+        "comment": "VIP-клиент. Просила присылать только эксклюзивные предложения.",
+        "owner": 8
+    }
+},
+{
+    "model": "messenger.client",
+    "pk": 7,
+    "fields": {
+        "email": "alexander.vasiliev@yandex.ru",
+        "name": "Александр Васильев",
+        "comment": "",
+        "owner": 8
+    }
+},
+{
+    "model": "messenger.client",
+    "pk": 8,
+    "fields": {
+        "email": "support@alexeev.dev",
+        "name": "Алексеев Алексей",
+        "comment": "Технический администратор. Получает все типы рассылок для мониторинга.",
+        "owner": 8
+    }
+},
+{
+    "model": "messenger.client",
+    "pk": 9,
+    "fields": {
+        "email": "maxim1985@gmail.com",
+        "name": "Максим Козлов",
+        "comment": "",
+        "owner": 8
+    }
+},
+{
+    "model": "messenger.message",
+    "pk": 2,
+    "fields": {
+        "topic": "Новинка! Линейка Premium уже в продаже",
+        "content": "Представляем революционные продукты Premium-серии. Бесплатная доставка при заказе от 5000 руб.",
+        "owner": 1
+    }
+},
+{
+    "model": "messenger.message",
+    "pk": 3,
+    "fields": {
+        "topic": "Ваш персональный подарок внутри",
+        "content": "Для вас специальный купон на скидку 15%. Нажмите, чтобы активировать предложение!",
+        "owner": 1
+    }
+},
+{
+    "model": "messenger.message",
+    "pk": 4,
+    "fields": {
+        "topic": "Только сегодня: бесплатная доставка",
+        "content": "Оформляйте заказ до 23:59 — доставим бесплатно. Не упустите возможность сэкономить!",
+        "owner": 1
+    }
+},
+{
+    "model": "messenger.message",
+    "pk": 5,
+    "fields": {
+        "topic": "Приглашаем на вебинар 15 июля",
+        "content": "Узнайте секреты эффективного использования наших продуктов. Регистрация по ссылке.",
+        "owner": 8
+    }
+},
+{
+    "model": "messenger.message",
+    "pk": 6,
+    "fields": {
+        "topic": "Отзыв о вашем заказе = скидка 10%",
+        "content": "Оставьте отзыв и получите скидку на следующую покупку. Нам важно ваше мнение!",
+        "owner": 8
+    }
+},
+{
+    "model": "messenger.message",
+    "pk": 7,
+    "fields": {
+        "topic": "Эксклюзив для постоянных клиентов",
+        "content": "Специальное предложение только для вас. Откройте письмо, чтобы увидеть детали.",
+        "owner": 8
+    }
+},
+{
+    "model": "messenger.mailing",
+    "pk": 2,
+    "fields": {
+        "sending_start": "2024-02-20T11:30:00Z",
+        "sending_end": "2027-02-20T11:30:00Z",
+        "status": "Запущена",
+        "message": 6,
+        "owner": 1,
+        "clients": [
+            3,
+            1,
+            4,
+            5
+        ]
+    }
+},
+{
+    "model": "messenger.mailing",
+    "pk": 3,
+    "fields": {
+        "sending_start": "2025-06-21T21:00:00Z",
+        "sending_end": "2025-07-05T21:00:00Z",
+        "status": "Запущена",
+        "message": 7,
+        "owner": 1,
+        "clients": [
+            3,
+            1,
+            4
+        ]
+    }
+},
+{
+    "model": "messenger.mailing",
+    "pk": 4,
+    "fields": {
+        "sending_start": "2025-05-28T21:00:00Z",
+        "sending_end": "2025-05-30T09:00:00Z",
+        "status": "Завершена",
+        "message": 3,
+        "owner": 1,
+        "clients": [
+            3,
+            1,
+            4,
+            5
+        ]
+    }
+},
+{
+    "model": "messenger.mailing",
+    "pk": 5,
+    "fields": {
+        "sending_start": "2025-06-21T21:00:00Z",
+        "sending_end": "2025-07-27T21:00:00Z",
+        "status": "Запущена",
+        "message": 4,
+        "owner": 8,
+        "clients": [
+            7,
+            8,
+            9,
+            6
+        ]
+    }
+},
+{
+    "model": "messenger.mailing",
+    "pk": 6,
+    "fields": {
+        "sending_start": "2025-06-21T21:00:00Z",
+        "sending_end": "2025-06-30T21:49:00Z",
+        "status": "Завершена",
+        "message": 3,
+        "owner": 1,
+        "clients": [
+            7,
+            8,
+            3,
+            1,
+            4,
+            5,
+            9,
+            6
+        ]
+    }
+},
+{
+    "model": "messenger.attempt",
+    "pk": 1,
+    "fields": {
+        "attempt_time": "2025-06-30T16:08:57.223Z",
+        "status": "Успешно",
+        "response": "Успешная попытка рассылки",
+        "mailing": 2
+    }
+},
+{
+    "model": "messenger.attempt",
+    "pk": 2,
+    "fields": {
+        "attempt_time": "2025-06-30T16:59:14.424Z",
+        "status": "Успешно",
+        "response": "Успешная попытка рассылки",
+        "mailing": 2
+    }
+},
+{
+    "model": "messenger.attempt",
+    "pk": 3,
+    "fields": {
+        "attempt_time": "2025-06-30T17:24:54.313Z",
+        "status": "Не успешно",
+        "response": "Рассылка завершилась",
+        "mailing": 4
+    }
+},
+{
+    "model": "messenger.attempt",
+    "pk": 4,
+    "fields": {
+        "attempt_time": "2025-06-30T17:25:06.019Z",
+        "status": "Успешно",
+        "response": "Успешная попытка рассылки",
+        "mailing": 3
+    }
+},
+{
+    "model": "messenger.attempt",
+    "pk": 5,
+    "fields": {
+        "attempt_time": "2025-06-30T20:42:34.162Z",
+        "status": "Успешно",
+        "response": "Успешная попытка рассылки",
+        "mailing": 5
+    }
+},
+{
+    "model": "messenger.attempt",
+    "pk": 6,
+    "fields": {
+        "attempt_time": "2025-06-30T20:43:09.681Z",
+        "status": "Успешно",
+        "response": "Успешная попытка рассылки",
+        "mailing": 5
+    }
+},
+{
+    "model": "messenger.attempt",
+    "pk": 7,
+    "fields": {
+        "attempt_time": "2025-06-30T21:49:52.385Z",
+        "status": "Не успешно",
+        "response": "Рассылка завершилась",
+        "mailing": 6
+    }
+}
+]

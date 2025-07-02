@@ -1,0 +1,34 @@
+{% extends 'messenger/base.html' %}
+
+{% block title %}Редактирование пользователя{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <div class="card border-primary m-4 p-3">
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+
+                        {% if object %}
+                        <button type="submit" class="btn btn-primary m-2">
+                            Сохранить
+                        </button>
+                        <a type="submit" class="btn btn-secondary m-2" href="{% url 'messenger:main' %}">
+                            Отмена
+                        </a>
+                        {% else %}
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+</div>
+
+{% endblock %}

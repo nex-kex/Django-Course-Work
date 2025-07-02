@@ -1,0 +1,106 @@
+{% extends 'messenger/base.html' %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+<h1 class="text-center m-3">
+    Главная страница сервиса
+    <hr class="border border-primary border-1 opacity-75">
+</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <div class="card border-primary m-4 p-3">
+                <h3 class="text-center">
+                    Информация о сервисе на текущий момент:
+                </h3>
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <p class="mt-2">
+                                Количество всех рассылок:
+                            </p>
+                        </td>
+                        <td class="text-center">
+                            <a class="btn btn-outline-primary" href="{% url 'messenger:mailing_list' %}">
+                                {{ mailing_count }}
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="mt-2">
+                                Количество активных рассылок:
+                            </p>
+                        </td>
+                        <td class="text-center">
+                            <a class="btn btn-outline-primary" href="{% url 'messenger:mailing_list_active' %}">
+                                {{ active_mailing_count }}
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="mt-2">
+                                Количество уникальных получателей:
+                            </p>
+                        </td>
+                        <td class="text-center">
+                            <a class="btn btn-outline-primary" href="{% url 'messenger:client_list' %}">
+                                {{ unique_clients_count }}
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+    {% if "Менеджеры" in user.groups.all|join:", " %}
+    <div class="row">
+        <div class="col-4">
+            <div class="card border-primary mb-3 p-3 text-center">
+                <h3>Клиенты</h3>
+                <div class="card-body text-primary">
+                    <a class="btn btn-outline-primary" href="{% url 'messenger:client_list' %}">
+                        Все клиенты
+                    </a>
+                    <a class="btn btn-outline-primary" href="{% url 'messenger:client_create' %}">
+                        Создать нового
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card border-primary mb-3 p-3 text-center">
+                <h3>Сообщения</h3>
+                <div class="card-body text-primary">
+                    <a class="btn btn-outline-primary" href="{% url 'messenger:message_list' %}">
+                        Все сообщения
+                    </a>
+                    <a class="btn btn-outline-primary" href="{% url 'messenger:message_create' %}">
+                        Создать новое
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card border-primary mb-3 p-3 text-center">
+                <h3>Рассылки</h3>
+                <div class="card-body text-primary">
+                    <a class="btn btn-outline-primary" href="{% url 'messenger:mailing_list' %}">
+                        Все рассылки
+                    </a>
+                    <a class="btn btn-outline-primary" href="{% url 'messenger:mailing_create' %}">
+                        Создать новую
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
